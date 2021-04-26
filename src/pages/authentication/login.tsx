@@ -8,7 +8,6 @@ const initialFormState = {
   password: ''
 }
 
-
 export default function Login({loggedUser}) {
   
   const context = useContext(AuthContext);

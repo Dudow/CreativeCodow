@@ -4,6 +4,17 @@ import ExpandMoreRoundedIcon from '@material-ui/icons/ExpandMoreRounded';
 import KeyboardArrowUpRoundedIcon from '@material-ui/icons/KeyboardArrowUpRounded';
 import { useState } from "react";
 
+import {format} from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
+
+const changeDate = (date) => {
+    const currentDate = format(new Date(date), 'MMM Y', {
+        locale: ptBR
+    })
+
+    return(currentDate)
+}
+
 
 const ReposRow = ({repo}) => {
 
@@ -40,6 +51,14 @@ const ReposRow = ({repo}) => {
         <span>
           <strong>Principal Linguagem:</strong>
           {repo.language}
+        </span>
+        <span>
+          <strong>Data de criação:</strong>
+          {changeDate(repo.created_at)}
+        </span>
+        <span>
+          <strong>Ultima atualização:</strong>
+          {changeDate(repo.updated_at)}
         </span>
         <div className={styles.go_to_repo}>
           <a href={repo.html_url} target="_blank">

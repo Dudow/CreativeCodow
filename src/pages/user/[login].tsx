@@ -3,31 +3,10 @@ import { useEffect, useState, useContext } from "react"
 import Layout from "../../components/Layout/Layout.js"
 import styles from "./User.module.css"
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
-import {format} from 'date-fns'
 import AuthContext from '../../providers/auth';
-import ptBR from 'date-fns/locale/pt-BR'
 import {useRouter} from 'next/router'
 import api from '../../services/api';
 import ReposTable from "../../components/ReposTable/ReposTable";
-
-const changeDate = (date) => {
-    const currentDate = format(new Date(date), 'MMM Y', {
-        locale: ptBR
-    })
-
-    return(currentDate)
-}
-
-const getRepo = async (user) => {
-
-    try{
-        const resRepos = await api.get(`https://api.github.com/users/${user.login}/repos`)
-      
-          return resRepos
-    } catch(e){
-        console.log(e)
-    }
-}
 
 const User = ({user, loggedUser}) => {
 

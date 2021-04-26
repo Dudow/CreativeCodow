@@ -1,9 +1,8 @@
+import { useEffect, useState } from "react"; 
+import ReposRow from './ReposRow/ReposRow'
+import api from '../../services/api';
 import styles from "./ReposTable.module.css";
 
-import ReposRow from './ReposRow/ReposRow'
-
-import { useEffect, useState } from "react";
-import api from '../../services/api';
 
 type RepoType = {
   id: number,
