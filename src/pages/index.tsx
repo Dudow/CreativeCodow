@@ -1,14 +1,22 @@
 import {useState, useEffect, useContext, useCallback} from 'react'
 import styles from '../styles/Home.module.css'
 import Layout from '../components/Layout/Layout.js'
-import SearchInput from '../components/SearchInput/SearchInput.js'
-import CountriesTable from '../components/CountriesTable/CountriesTable.js'
+import SearchInput from '../components/SearchInput/SearchInput'
+import CountriesTable from '../components/UsersTable/UsersTable'
 import AuthContext from '../providers/auth';
 import {useRouter} from 'next/router'
 import api from '../services/api';
 
+type UserType = {
+  id: number,
+  login: string,
+  name: string,
+  avatar_url: string,
+  bio: string
+}
+
 export default function Home(loggedUser) {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState<UserType>()
   const [results, setResults] = useState([])
   const router = useRouter()
   const context = useContext(AuthContext);

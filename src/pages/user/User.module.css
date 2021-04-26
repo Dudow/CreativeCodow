@@ -16,7 +16,7 @@
   margin-bottom: 0;
 }
 
-.overview_region {
+.overview_bio {
   text-align: center;
   font-size: 14px;
   font-weight: 300;
@@ -24,7 +24,7 @@
   margin-bottom: 24px;
 }
 
-.overview_number {
+.overview_numbers {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
@@ -102,11 +102,6 @@
   text-decoration: underline;
 }
 
-.details_borders img {
-  width: 100%;
-  border-radius: 4px;
-}
-
 .details_borders_name {
   margin: 0;
   margin-top: auto;
@@ -117,29 +112,40 @@
   padding: 20px;
 }
 
-.lilflag {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
-.details_borders_country {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-content: space-between;
-}
-
-.details_borders_label {
-  color: var(--text-color-secondary);
-  margin-bottom: 20px;
-}
-
 .container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 24px;
+}
+
+.go_to_perfil {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.go_to_perfil a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  max-width: 250px;
+  padding: 5px;
+  background: var(--background-color-light);
+  border-radius: 5px;
+  border: 1px solid var(--text-color);
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.details_repos {
+  padding: 20px;
+}
+
+.go_to_perfil a:hover {
+  background: var(--background-color);
+  text-decoration: none;
 }
 
 @media screen and (min-width: 720px) {

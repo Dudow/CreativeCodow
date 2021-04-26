@@ -42,17 +42,21 @@ const getRepo = async (user) => {
     }
 }
 
-const User = ({user}) => {
+const User = ({user, loggedUser}) => {
 
     const context = useContext(AuthContext);
 
     const [repos, setRepos] = useState<UserResponse[]>()
     const router = useRouter()
 
-    if(!context.user){
-        useEffect(() => {
-            router.push('/authentication/login')
-        }, [])
+    if(typeof localStorage !== "undefined"){
+        loggedUser = context.getUser()
+      }
+    
+    if(!context.user && !loggedUser){
+    useEffect(() => {
+        router.push('/authentication/login')
+    }, [])
     }
 
     function fixRoute(blog){
@@ -85,17 +89,17 @@ const User = ({user}) => {
                                 {user.login}
                             </a>
                         </h1>
-                        <div className={styles.overview_region}>{user.bio}</div>
-                        <div className={styles.overview_number}>
+                        <div className={styles.overview_bio}>{user.bio}</div>
+                        <div className={styles.overview_numbers}>
                             <div className={styles.overview_population}>
-                                <div className={styles.overview_value}>
+                                <div>
                                     {user.followers || "Unknown"}
                                 </div>
                                 <div className={styles.overview_label}>
                                     Seguidores
                                 </div>
                             </div>
-                            <div className={styles.overview_area}>
+                            <div>
                                 <div className={styles.overview_value}>
                                     {user.following || "Unknown"}
                                 </div>
@@ -103,6 +107,12 @@ const User = ({user}) => {
                                     Seguindo
                                 </div>
                             </div>
+                        </div>
+                        <div className={styles.go_to_perfil}>
+                            <a href={user.html_url} target="_blank">
+                                Ir para o perfil
+                            </a>
+                            
                         </div>
                     </div>
                 </div>
@@ -125,7 +135,10 @@ const User = ({user}) => {
                         <div className={styles.details_panel_row}>
                             <div className={styles.details_panel_label}>Blog</div>
                             <div className={styles.details_panel_value}>
-                                <a href={fixRoute(user.blog)} target="_blank">{user.blog || "Não informado"}</a>
+                                {user.blog ?
+                                <a href={fixRoute(user.blog)} target="_blank">{user.blog}</a> :
+                                    "Não informado"
+                                }
                             </div>
                         </div>
                         <div className={styles.details_panel_row}>
@@ -141,26 +154,9 @@ const User = ({user}) => {
                             <div className={styles.details_panel_value}>{user.public_repos}</div>
                         </div>
 
-                        <div className={styles.details_borders}>
-                            <div className={styles.details_borders_container}>
-                                <table className={styles.details_repos_container}>
-                                    <tr>
-                                        <th>Repositório</th>
-                                        <th>Criado em</th>
-                                        <th>Ultima atualização</th>
-                                        <th>Stars</th>
-                                        <th>Forks</th>
-                                    </tr>
-                                    {repos?.map(repo => (
-                                        <tr>
-                                            <td><a href={repo.html_url} target="_blank">{repo.name}</a></td>
-                                            <td>{changeDate(repo.created_at)}</td>
-                                            <td>{changeDate(repo.updated_at)}</td>
-                                            <td>{repo.stargazers_count}</td>
-                                            <td>{repo.forks}</td>
-                                        </tr>
-                                    ))}
-                                </table>
+                        <div className={styles.details_repos}>
+                            <div className={styles.details_repos_row}>
+
                             </div>
                         </div>
                     </div>
@@ -183,50 +179,29 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
 
-    // const user = await api.get(`https://api.github.com/users/${params.login}`, {
-    //   headers: {
-    //     authorization: 'token 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'
-    //   }
-    // })
+    let loggedUser
 
-    const user = {
-        "login": "ArturCx",
-        "id": 63474242,
-        "node_id": "MDQ6VXNlcjYzNDc0MjQy",
-        "avatar_url": "https://avatars.githubusercontent.com/u/63474242?v=4",
-        "gravatar_id": "",
-        "url": "https://api.github.com/users/ArturCx",
-        "html_url": "https://github.com/ArturCx",
-        "followers_url": "https://api.github.com/users/ArturCx/followers",
-        "following_url": "https://api.github.com/users/ArturCx/following{/other_user}",
-        "gists_url": "https://api.github.com/users/ArturCx/gists{/gist_id}",
-        "starred_url": "https://api.github.com/users/ArturCx/starred{/owner}{/repo}",
-        "subscriptions_url": "https://api.github.com/users/ArturCx/subscriptions",
-        "organizations_url": "https://api.github.com/users/ArturCx/orgs",
-        "repos_url": "https://api.github.com/users/ArturCx/repos",
-        "events_url": "https://api.github.com/users/ArturCx/events{/privacy}",
-        "received_events_url": "https://api.github.com/users/ArturCx/received_events",
-        "type": "User",
-        "site_admin": false,
-        "name": "Artur César ",
-        "company": null,
-        "blog": "",
-        "location": "Minas Gerais, Brasil",
-        "email": "arturcesarsilva@gmail.com",
-        "hireable": null,
-        "bio": null,
-        "twitter_username": null,
-        "public_repos": 2,
-        "public_gists": 0,
-        "followers": 6,
-        "following": 7,
-        "created_at": "2020-04-10T19:45:52Z",
-        "updated_at": "2021-04-06T21:16:10Z"
-      }
+    const {data} = await api.get(`https://api.github.com/users/${params.login}`, {
+        headers: {
+          authorization: 'token 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'
+        }
+    })
+
+    if(typeof localStorage !== "undefined"){
+        loggedUser = localStorage?.getItem('user')
+        return{
+            props: {
+                user: data,
+                loggedUser
+            },
+            revalidate: 60 * 60 * 3,
+        }
+    }
 
     return{
         props: {
-            user,
+            user: data,
+            loggedUser: null
         },
         revalidate: 60 * 60 * 3,
     }
