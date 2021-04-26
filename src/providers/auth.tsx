@@ -35,8 +35,6 @@ export const AuthProvider = ({ children }: AuthContextProviderProps) => {
   const [activeUser, setActiveUser] = useState<userType>();
   const router = useRouter()
 
-  // SÓ FUNCIONA A PARTIR DA SEGUNDA CHAMADA
-
   const Login = async ({email, password}) => {
     const res = await api.get(`http://localhost:3333/users`)
     setUsers(res.data);
