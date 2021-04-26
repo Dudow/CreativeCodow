@@ -1,22 +1,48 @@
-# Worldow Rank 
+# Creative Codow
 
-### A Javascript project using NextJs and API REST
+### A project to Creative Code interview
 
-Using it you can search for information about all the countries (not really all)
+Using it you can search for information about all the github users and all their repositories (not really all)
 
-### infos:
+## Infos:
 
+### User:
+
+    Nick
     Name
-    Population
-    Area (km²)
-    Gini coefficient: "represents the income inequality"
-    Subregion
-    Language (most used)
-    Currency
+    Bio
+    Followers
+    Following
+    Blog
+    Company
+    Location
+    Number of repositories
     Native name
     Neighbouring countries
 
-### Credits: 
+### Repository:
 
-    Video: https://www.youtube.com/watch?v=v8o9iJU5hEA&feature=youtu.be
-    Repository: https://github.com/nghiemthu/world-ranks
+    Name
+    Number of forks
+    Number of starts
+    Main language
+
+# How to install/use
+
+### Download the project
+
+    git clone https://github.com/Dudow/CreativeCodow.git
+
+### Download the dependencies
+
+    yarn install or npm install
+
+### Start the server
+
+    yarn server
+
+### Start the application
+
+    yarn dev
+
+### Enjoy and call me to talk about the contract
