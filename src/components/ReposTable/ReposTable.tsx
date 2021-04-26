@@ -23,8 +23,6 @@ const ReposTable = (userData) => {
 
   const [repos, setRepos] = useState<RepoType[]>()
 
-  console.log(user.props)
-
   const getRepo = async (user) => {
     try{
         const resRepos = await api.get(`https://api.github.com/users/${user.login}/repos`)
