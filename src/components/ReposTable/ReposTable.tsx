@@ -5,9 +5,6 @@ import ReposRow from './ReposRow/ReposRow'
 import { useEffect, useState } from "react";
 import api from '../../services/api';
 
-const fs = require('fs');
-require('dotenv/config');
-
 type RepoType = {
   id: number,
   name: string,
@@ -30,11 +27,7 @@ const ReposTable = (userData) => {
 
   const getRepo = async (user) => {
     try{
-        const resRepos = await api.get(`https://api.github.com/users/${user.login}/repos`, {
-            headers: {
-              authorization: `token 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`
-            }
-          })
+        const resRepos = await api.get(`https://api.github.com/users/${user.login}/repos`)
       
           return resRepos
     } catch(e){

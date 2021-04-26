@@ -7,11 +7,6 @@ import AuthContext from '../providers/auth';
 import {useRouter} from 'next/router'
 import api from '../services/api';
 
-const fs = require('fs');
-const authorization = process.env.NEXT_PUBLIC_API_TOKEN;
-
-require('dotenv/config');
-
 type UserType = {
   id: number,
   login: string,
@@ -40,11 +35,7 @@ export default function Home(loggedUser) {
   const getUser = useCallback(async (keyword) => {
 
     try{
-      const res = await api.get(`https://api.github.com/users/${keyword}`, {
-        headers: {
-          authorization: `token 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`
-        }
-      })
+      const res = await api.get(`https://api.github.com/users/${keyword}`)
 
       if(res){
         setUser(res.data)

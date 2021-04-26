@@ -10,10 +10,6 @@ import {useRouter} from 'next/router'
 import api from '../../services/api';
 import ReposTable from "../../components/ReposTable/ReposTable";
 
-const fs = require('fs');
-
-require('dotenv/config');
-
 const changeDate = (date) => {
     const currentDate = format(new Date(date), 'MMM Y', {
         locale: ptBR
@@ -25,11 +21,7 @@ const changeDate = (date) => {
 const getRepo = async (user) => {
 
     try{
-        const resRepos = await api.get(`https://api.github.com/users/${user.login}/repos`, {
-            headers: {
-                authorization: 'token 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'
-            }
-          })
+        const resRepos = await api.get(`https://api.github.com/users/${user.login}/repos`)
       
           return resRepos
     } catch(e){
@@ -157,11 +149,7 @@ export const getStaticProps = async ({ params }) => {
 
     let loggedUser
 
-    const {data} = await api.get(`https://api.github.com/users/${params.login}`, {
-        headers: {
-            authorization: `token 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`
-        }
-    })
+    const {data} = await api.get(`https://api.github.com/users/${params.login}`)
 
     if(typeof localStorage !== "undefined"){
         loggedUser = localStorage?.getItem('user')
