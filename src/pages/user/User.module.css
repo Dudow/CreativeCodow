@@ -80,7 +80,8 @@
   color: var(--text-color-secondary);
 }
 
-.details_panel_value a:hover {
+.details_panel_value a:hover,
+.container_left a:hover {
   text-decoration: underline;
 }
 

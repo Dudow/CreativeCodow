@@ -8,9 +8,7 @@ import {useRouter} from 'next/router'
 import api from '../services/api';
 
 export default function Home(loggedUser) {
-  const [keyword, setKeyword] = useState("");
   const [user, setUser] = useState({})
-  const [activeUser, setactiveUser] = useState({})
   const [results, setResults] = useState([])
   const router = useRouter()
   const context = useContext(AuthContext);
@@ -28,38 +26,42 @@ export default function Home(loggedUser) {
 
   const getUser = useCallback(async (keyword) => {
 
-    const res = await api.get(`https://api.github.com/users/${keyword}`, {
-      headers: {
-        authorization: 'Dudow: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'
-      }
-    })
+    try{
+      const res = await api.get(`https://api.github.com/users/${keyword}`, {
+        headers: {
+          authorization: 'token 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'
+        }
+      })
 
-    setUser(res.data)
-    setResults([...results, user])
+      if(res){
+        setUser(res.data)
+        setResults([...results, user])
+      }
+
+    }catch(e){
+      console.log(e)
+    }
+
+    return
   }, ([]));
 
   const onInputChange = (e) => {
     e.preventDefault()
-
-    setKeyword(e.target.value.toLowerCase())
     
-    console.log(keyword)
-
-    getUser(keyword)
+    getUser(e.target.value.toLowerCase())
   }
 
   return (
-    
     <Layout title={`CreativeCodow`}>
         <div className={styles.inputContainer}>
           <div className={styles.input}>
             <SearchInput 
-              placeholder="Filter by name, Region or SubRegion" 
+              placeholder="Search an user" 
               onChange={onInputChange} />
           </div>
         </div>
         <h1>
-          Bem vindo, {context.user}
+          Bem vindo, {loggedUser?.name}
         </h1>
         <CountriesTable user={user}/>
     </Layout>

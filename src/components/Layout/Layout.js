@@ -42,7 +42,7 @@ const Layout = ({children, title}) => {
 
 			<header className={styles.header}>
 				<Link href="/">
-					<h2 className={styles.logo_h2}><img src="https://resume-mocha.vercel.app/assets/logo.png" alt="logo" className={styles.logo}/> Worldow Ranks</h2>
+					<h2 className={styles.logo_h2}><img src="https://resume-mocha.vercel.app/assets/logo.png" alt="logo" className={styles.logo}/> Creative Codow</h2>
 				</Link>
 			</header>
 
