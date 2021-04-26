@@ -50,3 +50,15 @@ Using it you can search for information about all the github users and all their
     password: 12345
 
 ### Enjoy and call me to talk about the contract 📞😳
+
+## Stack
+
+    NextJs
+    Typescript
+    Axios
+
+    Tools
+        Json-server
+        Material-ui
+        Date-fns
+        React Context
