@@ -36,8 +36,6 @@ Using it you can search for information about all the github users and all their
     cd CreativeCodow
     yarn or npm install
 
-### \*You need a permission token to use the API (but i will let you use mine)
-
 ### Start the server
 
     yarn server
@@ -45,5 +43,10 @@ Using it you can search for information about all the github users and all their
 ### Start the application
 
     yarn dev
+
+### Log in using
+
+    email: admin@admin.com
+    password: 12345
 
 ### Enjoy and call me to talk about the contract 📞😳
