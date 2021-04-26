@@ -8,16 +8,11 @@ import AuthContext from '../../providers/auth';
 import ptBR from 'date-fns/locale/pt-BR'
 import {useRouter} from 'next/router'
 import api from '../../services/api';
+import ReposTable from "../../components/ReposTable/ReposTable";
 
-type UserResponse = {
-    id: number,
-    name: string
-    html_url: string
-    stargazers_count: number
-    forks: number
-    created_at: Date
-    updated_at: Date
-}
+const fs = require('fs');
+
+require('dotenv/config');
 
 const changeDate = (date) => {
     const currentDate = format(new Date(date), 'MMM Y', {
@@ -32,7 +27,7 @@ const getRepo = async (user) => {
     try{
         const resRepos = await api.get(`https://api.github.com/users/${user.login}/repos`, {
             headers: {
-              authorization: 'token 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'
+                authorization: 'token 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'
             }
           })
       
@@ -46,7 +41,6 @@ const User = ({user, loggedUser}) => {
 
     const context = useContext(AuthContext);
 
-    const [repos, setRepos] = useState<UserResponse[]>()
     const router = useRouter()
 
     if(typeof localStorage !== "undefined"){
@@ -62,21 +56,6 @@ const User = ({user, loggedUser}) => {
     function fixRoute(blog){
         return blog.includes('https') ? blog : `https://${blog}` 
     }
-
-    const getRepos = async () => {
-
-        const repoSearch = await getRepo(user)
-
-        if(repoSearch){
-            setRepos(repoSearch.data)
-        }
-
-        
-    }
-
-    useEffect(() => {
-        getRepos()
-    }, [])
 
     return (
         <Layout title={user.login}>
@@ -154,11 +133,8 @@ const User = ({user, loggedUser}) => {
                             <div className={styles.details_panel_value}>{user.public_repos}</div>
                         </div>
 
-                        <div className={styles.details_repos}>
-                            <div className={styles.details_repos_row}>
-
-                            </div>
-                        </div>
+                        <ReposTable props={user}/>
+                        
                     </div>
                 </div>
             </div>
@@ -183,7 +159,7 @@ export const getStaticProps = async ({ params }) => {
 
     const {data} = await api.get(`https://api.github.com/users/${params.login}`, {
         headers: {
-          authorization: 'token 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'
+            authorization: `token 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`
         }
     })
 

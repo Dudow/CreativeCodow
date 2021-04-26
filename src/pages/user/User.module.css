@@ -139,10 +139,6 @@
   cursor: pointer;
 }
 
-.details_repos {
-  padding: 20px;
-}
-
 .go_to_perfil a:hover {
   background: var(--background-color);
   text-decoration: none;

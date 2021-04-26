@@ -1,0 +1,83 @@
+.details_repos {
+  padding: 20px;
+}
+
+.details_repos_row_container {
+  border-bottom: 4px solid var(--background-color-light);
+}
+
+.details_repos_row {
+  width: 100%;
+  padding: 20px;
+  background-color: var(--background-color);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.details_repos_row:hover {
+  filter: opacity(0.85);
+}
+
+.details_repos_row:first-child {
+  border-radius: 5px 5px 0 0;
+}
+
+.details_repos_row h3 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.details_repos_row h3 i {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.details_repos_row_sub {
+  padding: 10px 20px;
+  background: var(--background-color);
+  filter: opacity(0.8);
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.details_repos_row_sub span {
+  font-size: 0.85rem;
+}
+
+.details_repos_row_sub strong {
+  font-size: 1rem;
+  margin-right: 8px;
+  color: var(--text-color);
+}
+
+.go_to_repo {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.go_to_repo a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  max-width: 250px;
+  padding: 5px;
+  background: var(--background-color-light);
+  border-radius: 5px;
+  border: 1px solid var(--text-color);
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.go_to_repo a:hover {
+  background: var(--background-color);
+  text-decoration: none;
+}

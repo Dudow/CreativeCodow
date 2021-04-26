@@ -17,8 +17,6 @@ Using it you can search for information about all the github users and all their
     Company
     Location
     Number of repositories
-    Native name
-    Neighbouring countries
 
 ### Repository: 💻
 
@@ -35,7 +33,10 @@ Using it you can search for information about all the github users and all their
 
 ### Download the dependencies
 
-    yarn install or npm install
+    cd CreativeCodow
+    yarn or npm install
+
+### \*You need a permission token to use the API (but i will let you use mine)
 
 ### Start the server
 
