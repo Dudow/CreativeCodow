@@ -1,12 +1,12 @@
-# Creative Codow
+# Creative Codow ⏰🔥
 
 ### A project to Creative Code interview
 
 Using it you can search for information about all the github users and all their repositories (not really all)
 
-## Infos:
+## Infos: 📝
 
-### User:
+### User: 🧗
 
     Nick
     Name
@@ -20,14 +20,14 @@ Using it you can search for information about all the github users and all their
     Native name
     Neighbouring countries
 
-### Repository:
+### Repository: 💻
 
     Name
     Number of forks
     Number of starts
     Main language
 
-# How to install/use
+# How to install/use ✏️📗
 
 ### Download the project
 
@@ -45,4 +45,4 @@ Using it you can search for information about all the github users and all their
 
     yarn dev
 
-### Enjoy and call me to talk about the contract
+### Enjoy and call me to talk about the contract 📞😳
