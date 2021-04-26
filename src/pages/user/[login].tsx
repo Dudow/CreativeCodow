@@ -1,10 +1,13 @@
 import Link from "next/link";
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import Layout from "../../components/Layout/Layout.js"
-import styles from "./Country.module.css"
+import styles from "./User.module.css"
 import ArrowBackRoundedIcon from '@material-ui/icons/ArrowBackRounded';
 import {format} from 'date-fns'
+import AuthContext from '../../providers/auth';
 import ptBR from 'date-fns/locale/pt-BR'
+import {useRouter} from 'next/router'
+import api from '../../services/api';
 
 const changeDate = (date) => {
     const currentDate = format(new Date(date), 'MMM Y', {
@@ -16,25 +19,40 @@ const changeDate = (date) => {
 
 const getRepo = async (user) => {
 
-    const res = await fetch(`https://api.github.com/users/${user.login}/repos`, {
-        headers: {
-            'Authorization': `Dudow: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`
-          }
-        } 
-    )
-
-    const resRepos = await res.json() 
+    const resRepos = await api.get(`https://api.github.com/users/${user}/repo`, {
+      headers: {
+        // 'Authorization': 'Dudow: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'
+      }
+    })
+    
+    console.log(resRepos)
 
     return resRepos
 }
 
 const User = ({user}) => {
 
+    const context = useContext(AuthContext);
+
+
     const [repos, setRepos] = useState([])
+    const router = useRouter()
+
+    if(!context.user){
+        useEffect(() => {
+            router.push('/authentication/login')
+        }, [])
+    }
+
+    function fixRoute(blog){
+        return blog.includes('https') ? blog : `https://${blog}` 
+    }
 
     const getRepos = async () => {
 
         const repoSearch = await getRepo(user)
+
+        console.log(repoSearch)
 
         setRepos(repoSearch)
     }
@@ -62,7 +80,7 @@ const User = ({user}) => {
                             </div>
                             <div className={styles.overview_area}>
                                 <div className={styles.overview_value}>
-                                    {user.followers || "Unknown"}
+                                    {user.following || "Unknown"}
                                 </div>
                                 <div className={styles.overview_label}>
                                     Seguindo
@@ -90,16 +108,16 @@ const User = ({user}) => {
                         <div className={styles.details_panel_row}>
                             <div className={styles.details_panel_label}>Blog</div>
                             <div className={styles.details_panel_value}>
-                                <a href={user.blog} target="_blank">{user.blog}</a>
+                                <a href={fixRoute(user.blog)} target="_blank">{user.blog}</a>
                             </div>
                         </div>
                         <div className={styles.details_panel_row}>
                             <div className={styles.details_panel_label}>Compania</div>
-                            <div className={styles.details_panel_value}>{user.company || "Unknown"}</div>
+                            <div className={styles.details_panel_value}>{user.company || "Nenhuma"}</div>
                         </div>
                         <div className={styles.details_panel_row}>
                             <div className={styles.details_panel_label}>Localização</div>
-                            <div className={styles.details_panel_value}>{user.location}</div>
+                            <div className={styles.details_panel_value}>{user.location || "Desconhecida"}</div>
                         </div>
                         <div className={styles.details_panel_row}>
                             <div className={styles.details_panel_label}>Repositórios Públicos</div>
@@ -148,8 +166,11 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
 
-    const res = await fetch(`https://api.github.com/users/${params.login}`)
-    const user = await res.json() 
+    const user = await api.get(`https://api.github.com/users/${params.login}`, {
+      headers: {
+        'Authorization': 'Dudow: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'
+      }
+    })
 
     return{
         props: {

@@ -35,7 +35,7 @@ const SortArrow = ({ direction }) => {
   }
 };
 
-const CountriesTable = ({ countries, user }) => {
+const CountriesTable = ({ user }) => {
   const [value, setValue] = useState();
 
   const setValueAndDirection = (value) => {
